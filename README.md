@@ -136,10 +136,10 @@ Now the hook should be able to allow the users log in to your Liferay Portal ins
 ## Attention for deployment through Eclipse Liferay IDE
 
 If you try to deploy the Github Login Hook through Eclipse Liferay IDE do not use the *"github_secrets.json"* file found inside the docroot folder. Instead navigate to your Eclipse home directory and create the folder path "webapps/github-login-hook". 
-Inside this folder place the *"github_login.json"* file containing your Github OAuth application's secrets as 
+Inside this folder place the *"github_secrets.json"* file containing your Github OAuth application's secrets as 
 presented in [Section C](#configuration).
 
 ## Important Points
 
- - The authentication is based on the users' email address in order to ensure interoperability with other familiar hooks. 
+ - The authentication is based on the users' email address in order to ensure interoperability with other similar hooks. 
  
