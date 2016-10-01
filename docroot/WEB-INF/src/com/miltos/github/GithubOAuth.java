@@ -75,11 +75,7 @@ public class GithubOAuth extends BaseStrutsAction {
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		/*
-		 * Initialization
-		 */
 		
-		//Retrieve the secrets from the predefined files
 		client_id = GithubSecretsParser.getGithubCilentId();
 		client_secret = GithubSecretsParser.getGithubCilentSecret();
 		
@@ -87,16 +83,8 @@ public class GithubOAuth extends BaseStrutsAction {
 
 		String cmd = ParamUtil.getString(request, Constants.CMD);
 		
-		/*
-		 * Login or user data retrieval phase?
-		 */
-
 		if (cmd.equals("login")) {
-			
-			/*
-			 * Redirect the user to the Authorization page
-			 */
-			
+						
 			String url = "https://github.com/login/oauth/authorize?client_id=" + client_id;
 			
 			response.sendRedirect(url);
@@ -108,22 +96,10 @@ public class GithubOAuth extends BaseStrutsAction {
 			String code = ParamUtil.getString(request, "code");
 
 			if (Validator.isNotNull(code)) {
-				
-				/*
-				 * 1. Get the Access Token.
-				 */
 
 				String accessToken = getToken(code);
-				
-				/*
-				 * 2. Retrieve the user's information.
-				 */
-				
+			
 				UserData userData = getUserData(accessToken);
-				
-				/*
-				 * 3. Update or add the user locally.
-				 */
 				
 				User user = addOrUpdateUser(session, themeDisplay.getCompanyId(), userData);
 						
@@ -131,11 +107,7 @@ public class GithubOAuth extends BaseStrutsAction {
 					redirectUpdateAccount(request, response, user);
 					return null;
 				}
-				
-				/*
-				 * 4. Redirect the user to the welcome page (Allow the user to access the server)
-				 */
-				
+
 				allowAccess(request, response, themeDisplay);
 				
 			}
@@ -206,10 +178,6 @@ public class GithubOAuth extends BaseStrutsAction {
 
 	private UserData fetchGithubUserData(String accessToken) throws IOException, JSONException {
 		
-		/*
-		 * 1. Perform a GET request for the protected resource.
-		 */
-		
 		String url = "https://api.github.com/user?access_token=" + accessToken;
 
 		URL obj = new URL(url);
@@ -226,17 +194,11 @@ public class GithubOAuth extends BaseStrutsAction {
 		}
 		in.close();
 			
-		/*
-		 * 2. Parse the JSON 
-		 */
-		
 	    JsonObject jsonResponse = new JsonParser().parse(response.toString()).getAsJsonObject();
 	   
-	    //Parse the user's Id
 	    String userId = jsonResponse.get("id").getAsString();
 	    String fullName = jsonResponse.getAsJsonObject().get("name").getAsString();
 	   
-	    //Parse the user's first and last name
 	    String firstName = "";
         StringBuilder lastNameBuilder = new StringBuilder();
         Scanner tokenizer = new Scanner(fullName);
@@ -256,46 +218,29 @@ public class GithubOAuth extends BaseStrutsAction {
             lastName = "Github";
         }
 	   
-        //Parse the user's email
 	    String email = jsonResponse.get("email").getAsString();
 	    
-       /*
-        * 3. Add the information to a UserData object
-        */
 	    UserData userData = new UserData(); 
 	    userData.setId(userId);
 	    userData.setEmail(email);
 	    userData.setFirstName(firstName);
 	    userData.setLastName(lastName);
 		   
-	   return userData;
+	    return userData;
 	}
 
 	protected User addOrUpdateUser(HttpSession session, long companyId, UserData userData) throws Exception {
 		
-		/*
-		 * 0. Prepare the search.
-		 */
-		
-		//Check if the retrieved UserData object is null
 		if (userData == null) {
 			return null;
 		}
 		
-		//Create a new User object
 		User user = null;
 
-		//Get the email address from the userData
 		String emailAddress = userData.getEmail();
 		
-		/*
-		 * 1. Search for an existing user with this email address.
-		 */
-		
-		//Search and retrieve the user by email...
 		if ((user == null) && Validator.isNotNull(emailAddress)) {
 			
-			//Retrieve this user by email address
 			user = UserLocalServiceUtil.fetchUserByEmailAddress(companyId, emailAddress);
 
 			if ((user != null) && (user.getStatus() != 6)) {
@@ -305,16 +250,10 @@ public class GithubOAuth extends BaseStrutsAction {
 			}
 		}
 
-		/*
-		 * 2. Check if the user exists. 
-		 */
-		
+
 		if (user != null) {
 			
-			/*
-			 * 2.1 If the user exists, update the user info.
-			 */
-			
+
 			if (user.getStatus() == 6) {
 				session.setAttribute("GITHUB_INCOMPLETE_USER_ID", userData.getId());
 				
@@ -328,10 +267,6 @@ public class GithubOAuth extends BaseStrutsAction {
 			user = UserService.updateUser(user, userData);
 		}
 		else {
-			
-			/*
-			 * 2.2 If the user doesn't exist, then add a new user.
-			 */
 			
 			user = UserService.addUser(session, companyId, userData);
 		}

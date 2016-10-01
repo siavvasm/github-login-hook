@@ -33,10 +33,8 @@ public class GithubSecretsParser {
 		
 		try{
 				
-		//Read the github_secrets.json file
 		BufferedReader br = new BufferedReader(new FileReader(GITHUB_SECRETS));
 		
-		//Retrieve its content
 		StringBuffer content = new StringBuffer();
 		String inputLine;
 		while ((inputLine = br.readLine()) != null) {
@@ -46,7 +44,6 @@ public class GithubSecretsParser {
 		
 		String secretsString = content.toString();
 		
-		//Parse the client_id attribute
 		JSONObject obj = new JSONObject(secretsString);
 		clientId = obj.getString("client_id");
 		

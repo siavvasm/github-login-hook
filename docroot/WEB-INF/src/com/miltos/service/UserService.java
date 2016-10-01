@@ -33,10 +33,6 @@ import com.miltos.model.UserData;
 
 public class UserService {
 	
-	/**
-	 * This method is invoked every time a new user registers to the Liferay Portal instance.
-	 * It creates a new profile for the specific user.
-	 */
 	public static User addUser(HttpSession session, long companyId, UserData userData) throws Exception {
 	
 		long creatorUserId = 0;
@@ -54,7 +50,6 @@ public class UserService {
 		int prefixId = 0;
 		int suffixId = 0;
 		
-		//Default gender value
 		boolean male = true;
 		
 		int birthdayMonth = Calendar.JANUARY;
@@ -87,10 +82,6 @@ public class UserService {
 		return user;
 	}
 	
-	/**
-	 * This method is executed every time the user logins, to update 
-	 * their information...
-	 */
 	public static User updateUser(User user, UserData userData) throws Exception {
 			
 		String emailAddress = userData.getEmail();
@@ -148,6 +139,5 @@ public class UserService {
 			groupIds, organizationIds, roleIds, userGroupRoles, userGroupIds,
 			serviceContext);
 	}
-
 
 }
