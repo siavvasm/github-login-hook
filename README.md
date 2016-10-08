@@ -21,7 +21,7 @@ In brief, these three alternative ways are presented below:
 
  1. **Installing through the Liferay Control Panel**
  
-    - Download the .lpkg (or .war) file of the hook.
+    - [Download](#download) the .lpkg (or .war) file of the hook.
 	- Start your Liferay Portal.
 	- Log in as an Administrator.
 	- Navigate to Control Panel -> Apps -> Install.
@@ -35,7 +35,7 @@ In brief, these three alternative ways are presented below:
 	
  2. **Installing through Liferay Hot Deploy**
  
-    - Download the .lpkg (or .war) file of the hook.
+    - [Download](#download) the .lpkg (or .war) file of the hook.
 	- Copy this file.
 	- Navigate to the folder named *"deploy"* of your Liferay Portal's home directory.
 	- Paste the file into this folder.
@@ -138,6 +138,10 @@ Now the hook should be able to allow the users log in to your Liferay Portal ins
 If you try to deploy the Github Login Hook through Eclipse Liferay IDE do not use the *"github_secrets.json"* file found inside the docroot folder. Instead navigate to your Eclipse home directory and create the folder path "webapps/github-login-hook". 
 Inside this folder place the *"github_secrets.json"* file containing your Github OAuth application's secrets as 
 presented in [Section C](#configuration).
+
+<h2 id="download">Direct Download</h2>
+
+If you don't want to pass through the compilation phase, you can download the .lpkg file directly from the [Liferay Marketplace](https://web.liferay.com/marketplace/-/mp/application/80377152). Alternatively, you may download the equivalent .war file from the this dropbox [link](https://www.dropbox.com/s/xwlbm9y7lc6p9sm/github-login-hook-1.0.0.0.war?dl=0). Subsequently, you can deploy the .lpkg or the .war file to your Liferay Portal instance by following one of the first two possible ways described in [Section A](#installation) of this README file. 
 
 ## Important Points
 
