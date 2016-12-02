@@ -20,14 +20,20 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import com.liferay.portal.kernel.model.Contact;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroupRole;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserGroupRole;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserLocalServiceUtil;
+
+//import com.liferay.portal.model.Contact;
+//import com.liferay.portal.model.User;
+//import com.liferay.portal.model.UserGroupRole;
+//import com.liferay.portal.service.ServiceContext;
+//import com.liferay.portal.service.UserLocalServiceUtil;
 
 import com.miltos.model.UserData;
 
@@ -141,11 +147,9 @@ public class UserService {
 			user.getTimeZoneId(), user.getGreeting(), user.getComments(),
 			firstName, user.getMiddleName(), lastName, contact.getPrefixId(),
 			contact.getSuffixId(), male, birthdayMonth, birthdayDay,
-			birthdayYear, contact.getSmsSn(), contact.getAimSn(),
-			contact.getFacebookSn(), contact.getIcqSn(), contact.getJabberSn(),
-			contact.getMsnSn(), contact.getMySpaceSn(), contact.getSkypeSn(),
-			contact.getTwitterSn(), contact.getYmSn(), contact.getJobTitle(),
-			groupIds, organizationIds, roleIds, userGroupRoles, userGroupIds,
+			birthdayYear, contact.getSmsSn(), contact.getSkypeSn(),
+			contact.getFacebookSn(), contact.getSmsSn(), contact.getJabberSn(),
+			contact.getSkypeSn(), groupIds, organizationIds, roleIds, userGroupRoles, userGroupIds,
 			serviceContext);
 	}
 
